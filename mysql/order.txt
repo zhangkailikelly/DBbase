@@ -1,0 +1,24 @@
+0:  net start mysql       net stop mysql
+    启动mysql数据库服务    关闭的命令       启动mysql服务要用管理员权限打开cmd
+1: mysql -hlocalhost -uroot -p
+   进入mysql客户端
+   -h表示服务器名;localhost表示本地;-u为数据库用户名;root是mysql默认用户名;-p为密码;
+2: show databases；
+   显示你有的数据库（mysql数据库中的命令必须以分号结尾“；”）
+3: exit;
+   退出mysql数据库
+4: CREATE DATABASE '名字'
+   创建数据库
+5: SHOW DATABASES 
+   查看所有数据库
+6: DROP DATABASE '名字'
+   删除数据库
+7：use '数据库名字'
+   切换数据库
+8：ALTER DATABASE 数据库名字 character set utf8; 
+   修改数据库的字符集
+9: 忘记登录密码:
+	杀掉mysqld 进程
+	新启一个cmd ,进入bin目录 执行mysqld --skip-grant-tables
+
+	再新启一个cmd,进入bin 目录 ,执行mysql,此时已进入mysql
