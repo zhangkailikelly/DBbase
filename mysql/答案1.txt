@@ -1,0 +1,117 @@
+use mydb2;
+
+
+create table user_tb(
+	id int primary key auto_increment,
+	name varchar(255),
+	sex char(1),
+	birthday date,
+	intime date,
+	address varchar(255),
+	salary int,
+	email varchar(255) ,
+	position varchar(255)
+);
+
+
+
+insert into user_tb values(null,'张三','男','1993-05-03','2015-05-03','北京',5000,'zs@163.com',null);
+insert into user_tb values(null,'李四','男','1994-03-07','2014-05-03','大连',5000,'li@163.com',null);
+
+insert into user_tb values(null,'王五','男','1995-12-03','2016-05-03','北京',7000,'ww@163.com',null);
+
+insert into user_tb values(null,'王婷','女','1988-11-03','2014-05-03','北京',7000,'wt@163.com',null);
+
+insert into user_tb values(null,'赵六','男','1989-02-03','2015-05-03','北京',7000,'zl@163.com',null);
+
+insert into user_tb values(null,'田七','男','1990-09-30','2016-02-03','上海',5000,'tq@163.com',null);
+
+insert into user_tb values(null,'钱八','男','1989-03-22','2016-04-03','南京',11000,'qb@163.com',null);
+
+insert into user_tb values(null,'赵婷','女','1994-04-12','2016-05-03','天津',5000,'zt@163.com',null);
+
+insert into user_tb values(null,'李四','女','1994-04-12','2016-05-03','北京',5000,'ls@qq.com',null);
+
+1. 1.修改王婷的工资为6000
+update user_tb set salary = 6000 where name = '王婷';
+2.2015年前入职的员工 工资 + 1000
+
+update user_tb set salary = salary + 1000 where intime < '2015-01-01';
+
+3.女性员工添加工资 500
+update user_tb set salary = salary + 500 where sex = '女';
+4.ALTER
+update user_tb set salary = salary + 500 where address != '北京';
+
+5.将 工资 大于 8000 的 员工的职位改为 总经理
+
+update user_tb set position = '总经理' where salary > 8000; 
+
+6.ALTER
+update user_tb set position = '中级工程师' where salary >= 6000  and salary  <= 8000;
+
+7.由于王五的技能不达标 工资降 500
+
+update user_tb set salary = salary - 500 where name = '王五';
+
+8.将 地址不在北京 和 女性 员工的 工资 上调 500
+
+update user_tb set salary = salary + 500 where  address != '北京' or sex = '女';
+9.把 职位 为null 的员工的职位设置为 初级工程师
+
+判断为null is null
+判断不是null is not null
+
+update user_tb set position = '初级工程师' where position  is null;
+
+10.把姓名为李四 并且 地址在北京的员工 工资改为7000；
+
+update user_tb set salary = 7000 where name = '李四' and address = '北京';
+
+11.
+
+delete from user_tb where name = '王五';
+
+12.
+delete FROM user_tb where address = '天津';
+
+13.ALTER
+delete from user_tb where salary >= 10000;
+
+14.
+
+15.
+
+delete from user_tb where 1=1;
+
+ 约束
+===================================
+not null 
+create table user2(
+			username varchar(200) not null default 'aaaa',
+	password varchar(255)	not null
+		);
+
+unique
+
+create table user2(
+			username varchar(200) unique ,
+	password varchar(255)	
+		);
+	
+	
+create table user2(
+username varchar(200) primary key ,
+	password varchar(255)	
+)
+;
+
+delete from user2 where username = 'ab';
+
+create table user_tb3(
+	id int primary key,
+	username varchar(200),
+	password varchar(200)
+);
+
+delete from user_tb3 where id = 4;

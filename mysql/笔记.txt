@@ -1,0 +1,336 @@
+﻿复习：
+
+	数据库是一种软件,管理数据。
+	
+	Oracle MySQL
+	
+	SQL 语句，通用，有细微的区别。
+	
+	MySQL；DDL DML DQL DCL
+	
+	1)DDL	****	
+		创建库（创建文件夹）：create database 数据库名;
+		
+		选择一个数据库:	use 数据库名;
+		
+		删除数据库	: drop database 数据库名;
+		
+		创建表：
+		
+			create table 表名(
+				列名 数据类型,
+				列名 数据类型
+			);
+			
+		修改表：
+			
+			添加列:
+			
+				alter table 表名 add 列名 数据类型;
+			
+			删除列:
+			
+				alter table 表名 drop 列名
+				
+			修改列：	只能修改数据类型
+			
+				alter table modify 列名 新数据类型
+				
+		删除表：
+		
+			drop table 表名;
+		
+	
+	2)DML	********	数据操作语言(完成的是对数据的 添加、修改 和 删除)
+	
+		添加数据：
+			
+			insert into 表名 values(数据,数据....);
+
+
+		修改数据：
+			
+			update 表名 set  列名1 = 新值1 , 列名2 = 新值2 ; 
+			
+			update user set age = 22 ; 没有条件 操作的是整张表的数据
+			
+			使用where条件限制 数据的操作。只对满足条件的数据进行修改
+			
+			update user set age = 22 where name = 'zhangsan';
+			
+			
+		删除数据：（删除一整行数据）
+		
+		
+			如果不加限制条件 ，删除的是整张表的数据。
+			
+			delete  from 表名; （很少删除数据，注意 一定要有限制）
+						
+			删除数据 加 条件
+			
+			delete from user where name = 'zhangsan';
+	
+	
+	3)DQL	*********
+	
+	
+		！！！！！！！！！！！！！！！
+		
+		 MySQL 值 不区分大小写
+
+		 
+		 select * from user_tb where name = 'a';
+		 
+		 select * from user_tb where name = 'A'; 查询结果一样
+		
+		！！！！！！！！！！！！！！！
+	
+		data  Query language 数据查询语言
+		
+		查询的结构
+		
+		select * from 表名
+	
+		查询的条件过滤:
+		
+		
+		select * from user_tb where 条件
+		
+			比较 = > >= < <= != 
+		
+			条件的拼接 and（并且） 和 or（或者）
+			
+			对null的判断
+				
+					判断为null 	select * from 表名 where 列名 is null;
+					
+					判断非null	select * from 表名 where 列名 is not null;
+			
+			in 关键字
+			
+				判断 某一列 是否在某一个范围
+			
+				select * from user_tb where address in ('天津','大连','北京');
+				
+			between  .. and .. 在某个范围之间
+			
+				select * from user_tb where salary between 6000 and 8000;
+			
+			
+			like 模糊查询 like关键字的时候
+			
+				%	代表任意个 任意字符	（无限个字符）
+				_	代表任意的一个字符	(一个字符)
+				
+				select * from user_tb where name like '王%';
+				select * from user_tb where name like '王_';	
+				
+				转义 字符 \ 
+				
+				查询名字中包含 % 字符的所有人的信息
+				
+				select * from user_tb where name like '%\%%';
+				
+			排序	order by 
+			
+				select * from 表名 order by 列名;			
+			
+				升序 asc 默认就是升序
+				
+				select * from user_tb ORDER BY salary asc;
+				
+				降序 desc 
+
+				select * from user_tb ORDER BY salary desc;
+
+
+			TOP-N 查询  （在任何数据库 都不一样） 
+			
+				mysql de top-n 查询 limit来实现
+				
+				select * from 表名 limit 值1,值2；
+				
+				值1,值2 都是整数 ,值1 代表从哪个下标开始查询，值2 代表查询 最多几条数据
+				
+				
+				
+			=================================================
+			
+			
+			select * from 表; 效率低
+			
+			
+			列 投影
+			
+			select 要查询的列, ... from 表名；	效率要高些，明确查询的列
+			
+			
+			给查询的列（投影列） 起别名；
+			
+			
+			select name,sex 性别,(salary + 1000) as salary from user_tb;
+			
+				as 可以省略
+ 			
+			组函数：(多行函数，多行数据 产生一个结果)
+			1.求和
+				sum();
+				
+			2.平均值
+			
+				avg();
+			3.最大值
+				max();
+			4.最小值
+				min();
+			5.计数
+			
+				count();
+				
+				select count(*) from 表名;
+			
+			分组查询: 不是很重要（******）
+			
+			select 查询的数据  from 表 group  by 列名;
+			
+			查询的数据，（select  和 from 之间），组函数， 可以放列名，
+			
+				出现在 select 后边的列，必须 作为 分组的条件
+				
+				如果列 作为分组的条件，可以不必出现在select 后边
+				
+			分完组 之后的条件，不能使用where条件，需要使用having关键字
+		
+			select count(*),position from user_tb  group by position HAVING count(*) >= 3; 
+
+		
+		
+		
+		
+		
+		！！！！！！！！！！！！！！
+		
+		关联关系
+		
+		！！！！！！！！！！！！！！
+		
+		1.多对一 和 一对多
+		
+		2.多对多
+		
+		// 3.一对一
+		
+		
+		
+	4)DCL
+	
+	
+	
+	约束：（限制，限制插入的数据）
+	
+	1.非空约束（当前列不能为null）
+	
+		create table user(
+			username varchar(200) 约束内容
+		);
+		
+		create table user(
+			username varchar(200) not null 非空约束 default 'aaa'
+		);
+	
+	2.唯一约束
+	
+		值唯一
+		
+		create table user(
+			username varchar(200) unique 唯一约束
+		);
+	
+	3.主键约束
+		
+		create table user(
+			username varchar(200) primary key 主键约束
+		);
+		
+		值不能为null 不能重复
+		
+		一个表中  只能有一个主键约束，（这个主键约束 可以作用在多个列）
+		
+		主键的作用 唯一的标识 某一条数据，用来区分每一条数据。建表的时候 都会设计一个 主键列，没有实际意义
+		
+		
+		
+		自增列
+		
+		create table 表名(
+			id int primary key auto_increment, 自增列，主键自增，不需要手动维护数据 ，
+			....
+		);
+		
+		自增列： 一般加在主键上，数据类型 int类型 ，主键只有一个
+		
+		自增列有 记忆功能，
+		
+		可以手动维护	（MySQL 有Oracle没有）
+		
+		
+		
+		
+		
+		
+	
+	4.外键约束
+	
+		外键约束：
+		
+		约束内容，限制当前列的 取值范围，取值范围 为  某一个表的 某一个列的 值的范围(一般为主键)
+		
+		
+		如何给 一个列 添加外键约束，
+		
+			例子： 员工（多） 和 部门（一） 是 多对一的关系，表关系如下 
+		
+			create table department(
+				
+				id int primary key auto_increment,		//	主键
+				name varchar(255)						// 部门名称
+			
+			);
+			
+			create table employee(
+				id int primary key auto_increment,		// 主键
+				emp_name varchar(255),					// 员工名称
+				emp_age int,							// 员工姓名
+				dept int      							// 员工的部门
+				
+			);
+			
+			
+			// employee 表的 dept 列，代表的就是 员工部门，需要有一个外键约束。
+			
+			
+			！！！！！
+			添加外键约束，(！！！！！注意： 能够是唷那个视图化的操作 添加外键约束就满足需求，命令要求能够看懂 )
+			
+			a:	视图化的操作 (参照视频)
+			
+			b:	可以通过命令完成 
+			
+				公式：alter table 表名 add constraint 外键约束名 (列名) references 表名(列名);
+				
+				当前的sql:
+				
+					alter table employee add constraint fk_kkkk(注意 ： 这个名字可以随便写) 	(dept) references dept(id);
+					
+						当前语句的意思，给 employee 的 dept列，添加一个 外键约束，dept列的值 只能够 从 dept表的 id列的值中取值。
+				
+			
+			
+			
+			
+	
+	5.检查约束（check） MySQL 不起作用
+	
+	
+	
+	
